@@ -1,0 +1,20 @@
+#!/bin/sh
+
+MFGFILE="../platform/framework/auto/rootfs/root/mfgimages/"
+OUTFILE="../out/myir/myt/longan/buildroot/target/root/mfgimages/"
+FIND_FILE="../.buildconfig"
+FIND_STR="LICHEE_BOARD=myt"
+
+if [ -d "$MFGFILE" ];then
+	rm -r ../platform/framework/auto/rootfs/root/mfgimages/
+	echo "clear ..."
+fi
+
+if [ -d "$OUTFILE" ];then
+	rm -r ../out/myir/myt/longan/buildroot/target/root/mfgimages/
+fi
+
+if [ `grep -c "$FIND_STR" $FIND_FILE` -ne '0' ];then
+    cp ../test/mfgimages ../platform/framework/auto/rootfs/root/ -r
+    echo "cp mfgimages" 
+fi 

@@ -1,0 +1,78 @@
+/*
+ *
+ * myir-yt507 support.
+ */
+
+/dts-v1/;
+
+#include "myir-yt507.dtsi"
+#include "display/myir-hdmi-1920x1080-1lvds-7-1024x600.dtsi"     
+
+/{
+	model = "myir-yt507h-core";
+	compatible = "allwinner,t507", "arm,sun50iw9p1";
+
+	aliases {
+		pmu0 = &pmu0;
+		standby_param = &standby_param;
+	
+	};
+	
+
+	soc@03000000 {
+		
+		twi2: twi@0x05002800{
+			status = "disabled";
+
+		};
+		
+		twi3: twi@0x05002c00{
+			status = "okay";
+			rtc1: rtc1@32 {
+				compatible = "epson,rx8025";
+				reg = <0x32>;
+				status = "okay";
+				};
+				
+			pca9555: gpio@20 {
+                		compatible = "nxp,pca9555";
+                		reg = <0x20>;
+                		/*gpio-controller;
+                		#gpio-cells = <2>;
+                		lines-initial-states = <0x0000>;*/
+				//pinctrl-names = "default";
+				//pinctrl-0 = <&pinctrl_pca9505>;
+				interrupt-parent = <&pio>;
+				interrupts = <PH 10 IRQ_TYPE_LEVEL_LOW>;
+                		status = "okay";
+        			};
+
+		   	eeprom: eeprom@50 {
+          			compatible = "atmel,24c32";
+          			reg = <0x50>;
+          			pagesize = <32>;
+          			//wp-gpios = <&gpioa 14 0>;
+          			num-addresses = <8>;
+      				};
+        	
+		};
+
+		twi4: twi@0x05003000{
+                        status = "okay";
+			/*
+			sgtl5000@0a {
+                                compatible = "allwinner,sgtl5000";
+                                device_type = "sgtl5000";
+                                reg = <0x0a>;
+
+                                VDDA-supply = <&reg_audio_vdd>;
+                                VDDIO-supply = <&reg_audio_vdd>;
+                                VDDD-supply = <&reg_audio_vdd1v8>;
+                                micbias-resistor-k-ohms = <4>;
+                                micbias-voltage-m-volts = <2250>;
+                                status = "okay";
+                        };
+			*/
+                };
+	};
+};

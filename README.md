@@ -30,7 +30,7 @@ Kernel config:
 
 cd kernel
 make ARCH=arm64 sun50iw9p1smp_longan_defconfig
-make menuconfig
-make savedefconfig
+make ARCH=arm64 menuconfig
+make ARCH=arm64 savedefconfig
 cp -f defconfig arch/arm64/configs/sun50iw9p1smp_longan_defconfig
 
